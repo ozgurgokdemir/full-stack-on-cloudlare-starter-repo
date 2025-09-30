@@ -9,9 +9,41 @@
   "compatibility_date": "2025-06-17",
   "assets": {
     "binding": "ASSETS",
-    "not_found_handling": "single-page-application",
+    "not_found_handling": "single-page-application"
   },
   "observability": {
-    "enabled": true,
+    "enabled": true
   },
+  "env": {
+    "stage": {
+      "d1_databases": [
+        {
+          "binding": "DB",
+          "database_id": "5a587dd3-4f2e-42d9-9bb2-9f2a044248e4",
+          "experimental_remote": true
+        }
+      ],
+      "services": [
+        {
+          "binding": "BACKEND_SERVICE",
+          "service": "data-service-stage",
+          "experimental_remote": true
+        }
+      ]
+    },
+    "production": {
+      "d1_databases": [
+        {
+          "binding": "DB",
+          "database_id": "29843aca-50dd-4641-8b5b-e8c100caf412"
+        }
+      ],
+      "services": [
+        {
+          "binding": "BACKEND_SERVICE",
+          "service": "data-service-production"
+        }
+      ]
+    }
+  }
 }
