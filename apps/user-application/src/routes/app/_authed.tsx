@@ -1,11 +1,18 @@
-import { AppSidebar } from "@/components/common/app-sidebar";
-import { SiteHeader } from "@/components/common/site-header";
-import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
-import { Outlet, createFileRoute } from "@tanstack/react-router";
-import { Toaster } from "@/components/ui/sonner";
+import { AppSidebar } from '@/components/common/app-sidebar';
+import { SiteHeader } from '@/components/common/site-header';
+import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
+import { Outlet, createFileRoute, redirect } from '@tanstack/react-router';
+import { Toaster } from '@/components/ui/sonner';
+import { authClient } from '@/components/auth/client';
 
-export const Route = createFileRoute("/app/_authed")({
+export const Route = createFileRoute('/app/_authed')({
   component: RouteComponent,
+  beforeLoad: async () => {
+    const session = await authClient.getSession();
+    if (!session.data?.session) {
+      throw redirect({ to: '/' });
+    }
+  },
 });
 function RouteComponent() {
   return (
@@ -13,8 +20,8 @@ function RouteComponent() {
       <SidebarProvider
         style={
           {
-            "--sidebar-width": "calc(var(--spacing) * 72)",
-            "--header-height": "calc(var(--spacing) * 12)",
+            '--sidebar-width': 'calc(var(--spacing) * 72)',
+            '--header-height': 'calc(var(--spacing) * 12)',
           } as React.CSSProperties
         }
       >
